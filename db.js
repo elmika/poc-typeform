@@ -8,6 +8,11 @@ const pool = new Pool({
   }
 });
 
+async function checkConnection() {
+  const result = await pool.query('SELECT NOW()');
+  return result.rows[0].now;
+}
+
 async function saveResponse(msg) {
   const form_id = msg.form_response.form_id;
   const submitted_at = msg.form_response.submitted_at;
@@ -26,4 +31,4 @@ async function saveResponse(msg) {
   }
 }
 
-module.exports = { saveResponse };
+module.exports = { saveResponse, checkConnection };
